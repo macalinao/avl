@@ -13,6 +13,10 @@ describe('avl', function() {
     avl.insert(-1);
     avl.insert(-2);
     avl.insert(-3);
+    avl.remove(1);
+    avl.remove(2);
+    avl.remove(3);
+    avl.remove(6);
 
     avl.print();
   });

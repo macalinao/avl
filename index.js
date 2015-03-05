@@ -12,6 +12,13 @@ AVL.prototype.insert = function(val) {
 };
 
 /**
+ * Removes a value from the AVL tree.
+ */
+AVL.prototype.remove = function(val) {
+  this.root = remove(val, this.root);
+};
+
+/**
  * Prints the contents of this AVL. (In-order);
  */
 AVL.prototype.print = function() {
@@ -53,6 +60,38 @@ function insert(val, root) {
 
   return balance(root);
 };
+
+/**
+ * Removes a value into the given tree.
+ */
+function remove(val, root) {
+  if (!root) {
+    return null;
+  }
+  if (val < root.val) {
+    // Left
+    root.left = remove(val, root.left);
+  } else if (val > root.val) {
+    // Right
+    root.right = remove(val, root.right);
+  } else if (root.left && root.right) {
+    root.val = findMin(root.right).val;
+    root.right = remove(root.val, root.right);
+  } else {
+    root = root.left ? root.left : root.right;
+  }
+
+  return balance(root);
+};
+
+/**
+ * Finds the minimum value of a node.
+ */
+function findMin(node) {
+  var min = node;
+  while (min.left) min = min.left;
+  return min;
+}
 
 /**
  * Balances a node.
@@ -135,4 +174,3 @@ function doubleWithRightChild(node) {
 function height(node) {
   return node ? node.height : -1;
 }
-
