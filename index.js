@@ -24,7 +24,7 @@ AVL.prototype.print = function() {
     }
 
     printNode(node.left, depth + 1);
-    console.log(space + node.val);
+    console.log(space + node.val + ' ' + node.height);
     printNode(node.right, depth + 1);
   }
 
@@ -37,7 +37,8 @@ AVL.prototype.print = function() {
 function insert(val, root) {
   if (!root) {
     return {
-      val: val
+      val: val,
+      height: 0
     };
   }
   if (val < root.val) {
@@ -65,11 +66,11 @@ function balance(node) {
     } else {
       node = doubleWithLeftChild(node);
     }
-  } else if (height(node.left) - height(node.right) > 1) {
-    if (height(node.left.left) >= height(node.left.right)) {
-      node = rotateWithLeftChild(node);
+  } else if (height(node.right) - height(node.left) > 1) {
+    if (height(node.right.right) >= height(node.right.left)) {
+      node = rotateWithRightChild(node);
     } else {
-      node = doubleWithLeftChild(node);
+      node = doubleWithRightChild(node);
     }
   }
 
@@ -119,6 +120,14 @@ function rotateWithRightChild(node) {
 function doubleWithLeftChild(node) {
   node.left = rotateWithRightChild(node.left);
   return rotateWithLeftChild(node);
+}
+
+/**
+ * Doubly rotates a node with a right child.
+ */
+function doubleWithRightChild(node) {
+  node.right = rotateWithLeftChild(node.right);
+  return rotateWithRightChild(node);
 }
 
 /**
