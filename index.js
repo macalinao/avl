@@ -114,7 +114,6 @@ function rotateWithRightChild(node) {
   return a;
 }
 
-
 /**
  * Doubly rotates a node with a left child.
  */
