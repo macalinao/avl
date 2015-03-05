@@ -84,34 +84,33 @@ function balance(node) {
  * Rotates a node with its left child.
  */
 function rotateWithLeftChild(node) {
-  // Make the left node the top node
-  var a = node.left;
-  // and make the current top node's left node the left node's right node
-  node.left = a.right;
-  // and make the current top node the right node
-  a.right = node;
+  // Swap top node with the left node
+  // So the left node becomes the top node
+  // and the top node becomes the right node
+  var top = node.left;
+  var right = node;
+  right.left = top.right;
+  top.right = right;
 
   // Recompute heights
-  node.height = Math.max(height(node.left), height(node.right)) + 1;
-  a.height = Math.max(height(a.left), node.height) + 1;
-  return a;
+  right.height = Math.max(height(right.left), height(right.right)) + 1;
+  top.height = Math.max(height(top.left), node.height) + 1;
+  return top;
 }
 
 /**
  * Rotates a node with its right child.
  */
 function rotateWithRightChild(node) {
-  // Make the right node the top node
-  var a = node.right;
-  // and make the current top node's right node the right node's left node
-  node.right = a.left;
-  // and make the current top node the left node
-  a.left = node;
+  var top = node.right;
+  var left = node;
+  left.right = top.left;
+  top.left = left;
 
   // Recompute heights
-  node.height = Math.max(height(node.left), height(node.right)) + 1;
-  a.height = Math.max(height(a.right), node.height) + 1;
-  return a;
+  left.height = Math.max(height(left.left), height(left.right)) + 1;
+  top.height = Math.max(height(top.right), node.height) + 1;
+  return top;
 }
 
 /**
