@@ -1,0 +1,20 @@
+{
+  "name": "avl",
+  "description": "AVL tree implemented in Node.js",
+  "version": "0.0.0",
+  "dependencies": {},
+  "author": "Ian Macalinao <me@ian.pw>",
+  "repository": "simplyianm/avl",
+  "license": "MIT",
+  "keywords": [
+    "avl",
+    "tree"
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R spec"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}
