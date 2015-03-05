@@ -24,7 +24,7 @@ AVL.prototype.print = function() {
     }
 
     printNode(node.left, depth + 1);
-    console.log(space + node.val + ' ' + node.height);
+    console.log(space + node.val);
     printNode(node.right, depth + 1);
   }
 
@@ -60,13 +60,14 @@ function insert(val, root) {
 function balance(node) {
   if (!node) return node;
 
-  if (height(node.left) - height(node.right) > 1) {
+  var diff = height(node.left) - height(node.right);
+  if (diff > 1) {
     if (height(node.left.left) >= height(node.left.right)) {
       node = rotateWithLeftChild(node);
     } else {
       node = doubleWithLeftChild(node);
     }
-  } else if (height(node.right) - height(node.left) > 1) {
+  } else if (diff < -1) {
     if (height(node.right.right) >= height(node.right.left)) {
       node = rotateWithRightChild(node);
     } else {
@@ -102,13 +103,13 @@ function rotateWithLeftChild(node) {
 function rotateWithRightChild(node) {
   // Make the right node the top node
   var a = node.right;
-  // and make the current top node's right node the right node's right node
-  node.right = a.right;
-  // and make the current top node the right node
-  a.right = node;
+  // and make the current top node's right node the right node's left node
+  node.right = a.left;
+  // and make the current top node the left node
+  a.left = node;
 
   // Recompute heights
-  node.height = Math.max(height(node.right), height(node.right)) + 1;
+  node.height = Math.max(height(node.left), height(node.right)) + 1;
   a.height = Math.max(height(a.right), node.height) + 1;
   return a;
 }
